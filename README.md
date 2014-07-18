@@ -47,8 +47,7 @@ if (!file.exists(myzip)) {
 Firstly I bring in the data that will be on both test and training; namely the columns definitions (features.txt) and the activity look-up table (activity_labels.txt): 
 
 ```r
-# Read the data in 
-### Training data
+# Read the data needed across both training and test and labels them correctly
 features<- read.table("./UCI HAR Dataset/features.txt", header=FALSE, stringsAsFactors=FALSE)
 activity_labels<- read.table("./UCI HAR Dataset/activity_labels.txt", header=FALSE, stringsAsFactors=FALSE)
 colnames(activity_labels) <- c("Code", "Activity")
@@ -61,7 +60,7 @@ I decided to tidy up the test and training data seperately first to reduce the o
 training_set <- read.table("./UCI HAR Dataset/train/x_train.txt", header=FALSE, stringsAsFactors=FALSE)
 colnames(training_set) <- t(features[,2])
 
-# (2) Read in the smaller training tables, tidy up the column headings and also bring in the activity meanin
+# (2) Read in the smaller training tables, tidy up the column headings and also bring in the activity meaning
 training_subject <- read.table("./UCI HAR Dataset/train/subject_train.txt", header=FALSE, stringsAsFactors=FALSE)
 training_labels <- read.table("./UCI HAR Dataset/train/y_train.txt", header=FALSE, stringsAsFactors=FALSE)
 colnames(training_subject) <- c("Subject")
@@ -70,7 +69,7 @@ colnames(training_labels) <- c("Code")
 # The merge to bring meaning to the activity code
 training_activity=merge(training_labels, activity_labels, all=TRUE)
 
-# (3) Brings all the data together and using grep to strip out the required columns
+# (3) Brings all the data together and using grep to strip out the required columns, I had added a column to flag its Training data in case relevant
 training_activity=merge(training_labels, activity_labels, all=TRUE)
 training_data<-cbind("Subject Type" = "Training", 
                      training_subject, 
@@ -79,25 +78,28 @@ training_data<-cbind("Subject Type" = "Training",
                      subset(training_set, select=(names(training_set)[grep('std()',names(training_set), fixed=TRUE)]))
 )
 
-# Delete unecessary tables; we do retain the broader features and activity_labels to be used with the test data
+# (4) Delete unecessary tables; we do retain the broader features and activity_labels to be used with the test data
 rm(myzip, fileurl)
 rm(training_subject, training_set, training_activity, training_labels)
 ```
 
+The test data follows the exact same pattern as above but for test data and then all tables are removed aside from the tidy_data necessary for the output:
 
-### Test data
+```r
+# (1) Read in the txt file and apply the column names from the features table, we know they are in column 2
 test_set <- read.table("./UCI HAR Dataset/test/x_test.txt", header=FALSE, stringsAsFactors=FALSE)
 colnames(test_set) <- t(features[,2])
 
+# (2) Read in the smaller training tables, tidy up the column headings and also bring in the activity meaning
 test_subject <- read.table("./UCI HAR Dataset/test/subject_test.txt", header=FALSE, stringsAsFactors=FALSE)
 test_labels <- read.table("./UCI HAR Dataset/test/y_test.txt", header=FALSE, stringsAsFactors=FALSE)
 colnames(test_subject) <- c("Subject")
 colnames(test_labels) <- c("Code")
 
-
-#mean(): Mean value
-#std(): Standard deviation
+# The merge to bring meaning to the activity code
 test_activity=merge(test_labels, activity_labels, all=TRUE)
+
+# (3) Brings all the data together and using grep to strip out the required columns, I had added a column to flag its Test data in case relevant
 test_data<-cbind("Subject Type" = "Test", 
                      test_subject, 
                      "Activity" = test_activity$Activity, 
@@ -105,12 +107,20 @@ test_data<-cbind("Subject Type" = "Test",
                      subset(test_set, select=(names(test_set)[grep('std()',names(test_set), fixed=TRUE)]))
 )
 
+# (4) Delete unecessary tables; we do retain the test and training tidy sets
 rm(test_subject, test_set, test_activity, test_labels)
 rm(features, activity_labels)
-
-tidy_data <- rbind(test_data, training_data)
-
-rm(test_data, training_data)
-
 ```
 
+To complete the first output required I bring together the data, clean out the last remaining unecessary data and then output the file to a .txt file for GitHub
+
+```r
+# Merge the 2 datasets into one tidy table
+tidy_data <- rbind(test_data, training_data)
+
+# Remove all unecessary data
+rm(test_data, training_data)
+
+# Output the .txt file (comma delimited)
+write.table(tidy_data, file = "tidy_data.txt", sep = ",")
+```
