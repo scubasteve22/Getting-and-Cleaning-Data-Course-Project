@@ -1,4 +1,10 @@
 ## Course Project - Scuba22
+# Ensure all necessary libraries are read in (some may not be needed in final cut)
+library(knitr)      #For knitr
+library(reshape)    #For rename
+
+opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE, 
+               fig.width = 10)
 
 ### Read in raw data
 # Set the location of the data to use
@@ -22,6 +28,7 @@ colnames(activity_labels) <- c("Code", "Activity")
 # (1) Read in the txt file and apply the column names from the features table, we know they are in column 2
 training_set <- read.table("./UCI HAR Dataset/train/x_train.txt", header=FALSE, stringsAsFactors=FALSE)
 colnames(training_set) <- t(features[,2])
+
 
 # (2) Read in the smaller training tables, tidy up the column headings and also bring in the activity meaning
 training_subject <- read.table("./UCI HAR Dataset/train/subject_train.txt", header=FALSE, stringsAsFactors=FALSE)
@@ -91,7 +98,7 @@ write.table(tidy_data, file = "tidy_data.txt", sep = ",", row.names = FALSE)
 
 
 ### Create the mean data for the second independent table
-agg_base<-aggregate(tidy_data, by=list(tidy_data$Activity, tidy_data$Subject), FUN=mean)
+agg_base<-aggregate.data.frame(tidy_data, by=list(tidy_data$Activity, tidy_data$Subject), mean)
 
 ### Remove the unwanted columns and rename the groupings
 
