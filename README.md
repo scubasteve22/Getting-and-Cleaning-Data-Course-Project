@@ -1,18 +1,41 @@
 # Getting and Cleaning Data - Course Project
 
+### Experiment background (taken from original README.txt)
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
+
+### Content of the master branch 
 Please find below the code used borken into key segments with explanations of each section.  Within the current directory there are the files below:
 
-1. Dataset.zip - The original data downloaded for the exercise
-2. run_analysis.R - The R file to complete the exercise
-3. gettingandcleaningdata.html - html version of the knitr output
-4. gettingandcleaningdata.Rmd - The R Markdown file to explian the code used
-5. README.md - The file to explain the construction and use of the code
-6. tidy_data.txt - The file output to meet the first tidy data requirement
-7. tidy_data2.txt - The file output to meet the first tidy data requirement
-8. UCI HAR Dataset folder/ - Holds the unzipped data required
+1. UCI HAR Dataset folder
++ Holds the unzipped data required for the exercise (I do not use UCI HAR Dataset folder/)
 
-Below explains how they connect:
+2. CookBook.Rmd          
++ The R Markdown file used to create CookBook.md
 
+3. CookBook.md        
++ The CookBook explains the meaning of the data in the .txt files and also how the code works
 
+4. Dataset.zip        
++ The original data downloaded for the exercise
 
+5. README.Rmd         
++ The R Markdown file used to create README.md
 
+6. README.md         
++ This file used to explain a bit more about the project and files
+
+7. run_analysis.R 
++ The code run to complete the exercise, its explained in the CookBook.md file and worth checking that out for details.
++ There is a single piece of code used to produce the 2 required outputs below:
+
+8. tidy_data.txt  
++ The output for the tidy data set, where the training and test sets are merged, the mean and standard deviation columns are retained, the descriptive acticity names are used to name the activities and the appropriate labels are set.
++ The file is 10299 obs. of 69 variables and around 8Mb so use caution when opening.
+
+9. tidy_data2.txt             
++The output for the second tidy data set with the average of each variable for each activity and each subject. 
++The file is 40 obs. of 68 variables so can be opened easily here.
+
+ScubaSteve22. July 2014.

@@ -53,200 +53,72 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 
-<div id="getting-and-cleaning-data---cookbook" class="section level1">
-<h1>Getting and Cleaning Data - CookBook</h1>
-<p>This document contains the definitions of the tidy dataset variables and then the code and transformations of data:</p>
-<div id="definition-of-columns" class="section level2">
-<h2>Definition of columns</h2>
-<div id="tidy_data.txt" class="section level3">
-<h3>tidy_data.txt</h3>
+<div id="getting-and-cleaning-data---course-project" class="section level1">
+<h1>Getting and Cleaning Data - Course Project</h1>
+<div id="experiment-background-taken-from-original-readme.txt" class="section level3">
+<h3>Experiment background (taken from original README.txt)</h3>
+<p>The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.</p>
+<p>The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.</p>
+</div>
+<div id="content-of-the-master-branch" class="section level3">
+<h3>Content of the master branch</h3>
+<p>Please find below the code used borken into key segments with explanations of each section. Within the current directory there are the files below:</p>
+</div>
+<div id="uci-har-dataset-folder" class="section level2">
+<h2>1. UCI HAR Dataset folder</h2>
 <ul>
-<li>Subject Type - Split into “Training” or “Test” to show where the data came from i.e. whether it was training or test data</li>
-<li>Subject - The number of the Subject being tested</li>
-<li>Activity - The plain English version of the activity being performed; can be from “WALKING”, “WALKING_UPSTAIRS”, “WALKING_DOWNSTAIRS”, “SITTING”, “STANDING”, “LAYING”.</li>
-</ul>
-<p>The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix ‘t’ to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz.</p>
-<p>Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag).</p>
-<p>Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the ‘f’ to indicate frequency domain signals).</p>
-<p>These signals were used to estimate variables of the feature vector for each pattern:<br />‘-XYZ’ is used to denote 3-axial signals in the X, Y and Z directions.</p>
-<ul>
-<li>tBodyAcc-XYZ</li>
-<li>tGravityAcc-XYZ</li>
-<li>tBodyAccJerk-XYZ</li>
-<li>tBodyGyro-XYZ</li>
-<li>tBodyGyroJerk-XYZ</li>
-<li>tBodyAccMag</li>
-<li>tGravityAccMag</li>
-<li>tBodyAccJerkMag</li>
-<li>tBodyGyroMag</li>
-<li>tBodyGyroJerkMag</li>
-<li>fBodyAcc-XYZ</li>
-<li>fBodyAccJerk-XYZ</li>
-<li>fBodyGyro-XYZ</li>
-<li>fBodyAccMag</li>
-<li>fBodyAccJerkMag</li>
-<li>fBodyGyroMag</li>
-<li>fBodyGyroJerkMag</li>
-</ul>
-<p>The set of variables that were estimated from these signals are (represented by the suffix <em>mean() or </em>std()):</p>
-<ul>
-<li>mean(): Mean value</li>
-<li>std(): Standard deviation</li>
-</ul>
-<p>Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:</p>
-<ul>
-<li>gravityMean</li>
-<li>tBodyAccMean</li>
-<li>tBodyAccJerkMean</li>
-<li>tBodyGyroMean</li>
-<li>tBodyGyroJerkMean</li>
+<li>Holds the unzipped data required for the exercise (I do not use UCI HAR Dataset folder/)</li>
 </ul>
 </div>
-<div id="tidy_data_mean.txt" class="section level3">
-<h3>tidy_data_mean.txt</h3>
-<p>dfdfdfdf</p>
 </div>
+<div id="cookbook.rmd" class="section level1">
+<h1>2. CookBook.Rmd</h1>
+<ul>
+<li>The R Markdown file used to create CookBook.md</li>
+</ul>
 </div>
-<div id="explanation-of-run_analysis.r" class="section level2">
-<h2>Explanation of run_analysis.R</h2>
-<div id="set-global-settings" class="section level3">
-<h3>Set global settings</h3>
-<p>Ensuring that the correct library is loaded for knitr and setting the global chunk options:</p>
-<pre class="r"><code>## Course Project - Scuba22
-
-# Ensure all necessary libraries are read in (some may not be needed in final cut)
-library(knitr)      #For knitr
-library(reshape)    #For rename
-
-opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE, 
-               fig.width = 10)</code></pre>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot. <code>warning = FALSE</code> and <code>message = FALSE</code> are added to remove the uncessary warnings and messages when producing the plots. Finally added <code>fig.width = 10</code> to make the plots wider and easier to read.</p>
+<div id="cookbook.md" class="section level1">
+<h1>3. CookBook.md</h1>
+<ul>
+<li>The CookBook explains the meaning of the data in the .txt files and also how the code works</li>
+</ul>
 </div>
-<div id="read-in-raw-data" class="section level3">
-<h3>Read in raw data</h3>
-<p>This stage reads in the .zip file and then unzips ready for use:</p>
-<pre class="r"><code># Set the location of the data to use
-fileurl&lt;-&quot;https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip&quot;
-
-# Set the name of the zip file we wish to extract
-myzip = &quot;Dataset.zip&quot;
-
-# If data file has not yet been downloaded then fetch it otherwise move on
-if (!file.exists(myzip)) {
-  download.file(fileurl, destfile=myzip, method=&quot;curl&quot;)
-  unzip(myzip)
-}</code></pre>
+<div id="dataset.zip" class="section level1">
+<h1>4. Dataset.zip</h1>
+<ul>
+<li>The original data downloaded for the exercise</li>
+</ul>
 </div>
-<div id="create-tidy-data-set-for-training" class="section level3">
-<h3>Create tidy data set for training</h3>
-<p>Firstly I bring in the data that will be on both test and training; namely the columns definitions (features.txt) and the activity look-up table (activity_labels.txt):</p>
-<pre class="r"><code># Read the data needed across both training and test and labels them correctly
-features&lt;- read.table(&quot;./UCI HAR Dataset/features.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-activity_labels&lt;- read.table(&quot;./UCI HAR Dataset/activity_labels.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-colnames(activity_labels) &lt;- c(&quot;Code&quot;, &quot;Activity&quot;)</code></pre>
-<p>I decided to tidy up the test and training data seperately first to reduce the overall amount of data being moved around. Firstly I clean the training data (1) by applying the correct columns headings from the features table, (2) bringing in the activity meanings from activity labels, (3) bringing all the data together and only retaining set data where we find mean() - mean value - and std() - standard deviation; I decided to use these definitions to meet the Course Project requirement as it was consistent with the definition in the original read.txt document and, finally, (4) I clear out redundant tables to make the Global Environment easier to read:</p>
-<pre class="r"><code># (1) Read in the txt file and apply the column names from the features table, we know they are in column 2
-training_set &lt;- read.table(&quot;./UCI HAR Dataset/train/x_train.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-colnames(training_set) &lt;- t(features[,2])
-
-# (2) Read in the smaller training tables, tidy up the column headings and also bring in the activity meaning
-training_subject &lt;- read.table(&quot;./UCI HAR Dataset/train/subject_train.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-training_labels &lt;- read.table(&quot;./UCI HAR Dataset/train/y_train.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-colnames(training_subject) &lt;- c(&quot;Subject&quot;)
-colnames(training_labels) &lt;- c(&quot;Code&quot;)
-
-# The merge to bring meaning to the activity code
-training_activity=merge(training_labels, activity_labels, all=TRUE)
-
-# (3) Brings all the data together and using grep to strip out the required columns, I had added a column to flag its Training data in case relevant
-training_activity=merge(training_labels, activity_labels, all=TRUE)
-training_data&lt;-cbind(&quot;Subject Type&quot; = &quot;Training&quot;, 
-                     training_subject, 
-                     &quot;Activity&quot; = training_activity$Activity, 
-                     subset(training_set, select=(names(training_set)[grep('mean()',names(training_set), fixed=TRUE)])),
-                     subset(training_set, select=(names(training_set)[grep('std()',names(training_set), fixed=TRUE)]))
-)
-
-# (4) Delete unecessary tables; we do retain the broader features and activity_labels to be used with the test data
-rm(myzip, fileurl)
-rm(training_subject, training_set, training_activity, training_labels)</code></pre>
-<p>The test data follows the exact same pattern as above but for test data and then all tables are removed aside from the tidy_data necessary for the output:</p>
-<pre class="r"><code># (1) Read in the txt file and apply the column names from the features table, we know they are in column 2
-test_set &lt;- read.table(&quot;./UCI HAR Dataset/test/x_test.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-colnames(test_set) &lt;- t(features[,2])
-
-# (2) Read in the smaller training tables, tidy up the column headings and also bring in the activity meaning
-test_subject &lt;- read.table(&quot;./UCI HAR Dataset/test/subject_test.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-test_labels &lt;- read.table(&quot;./UCI HAR Dataset/test/y_test.txt&quot;, header=FALSE, stringsAsFactors=FALSE)
-colnames(test_subject) &lt;- c(&quot;Subject&quot;)
-colnames(test_labels) &lt;- c(&quot;Code&quot;)
-
-# The merge to bring meaning to the activity code
-test_activity=merge(test_labels, activity_labels, all=TRUE)
-
-# (3) Brings all the data together and using grep to strip out the required columns, I had added a column to flag its Test data in case relevant
-test_data&lt;-cbind(&quot;Subject Type&quot; = &quot;Test&quot;, 
-                     test_subject, 
-                     &quot;Activity&quot; = test_activity$Activity, 
-                     subset(test_set, select=(names(test_set)[grep('mean()',names(test_set), fixed=TRUE)])),
-                     subset(test_set, select=(names(test_set)[grep('std()',names(test_set), fixed=TRUE)]))
-)
-
-# (4) Delete unecessary tables; we do retain the test and training tidy sets
-rm(test_subject, test_set, test_activity, test_labels)
-rm(features, activity_labels)</code></pre>
+<div id="readme.rmd" class="section level1">
+<h1>5. README.Rmd</h1>
+<ul>
+<li>The R Markdown file used to create README.md</li>
+</ul>
 </div>
-<div id="create-output-of-the-first-tidy-dataset" class="section level3">
-<h3>Create output of the first tidy dataset</h3>
-<p>To complete the first output required I bring together the data, sort the data by Subject as I feel its easier to read for this exercise, transform the factors to characters clean out the last remaining unecessary data and then output the file to a .txt file for GitHub</p>
-<pre class="r"><code># Merge the 2 datasets into one tidy table and sort the table to make it readable, for this table I have decided by Subject is most relevant to see what each subject undertook
-tidy_data_base &lt;- rbind(test_data, training_data)
-tidy_data &lt;- tidy_data_base[order(tidy_data_base$&quot;Subject&quot;, tidy_data_base$&quot;Activity&quot;),]
-
-# Change the factors to chars
-i &lt;- sapply(tidy_data, is.factor)
-tidy_data[i] &lt;- lapply(tidy_data[i], as.character)
-
-# Remove all unecessary data
-rm(test_data, training_data, i, tidy_data_base)
-
-# Output the .txt file (comma delimited) - Set row.names to false to prevent exporting row numbers and confusing column names
-write.table(tidy_data, file = &quot;tidy_data.txt&quot;, sep = &quot;,&quot;, row.names = FALSE)</code></pre>
+<div id="readme.md" class="section level1">
+<h1>6. README.md</h1>
+<ul>
+<li>This file used to explain a bit more about the project and files</li>
+</ul>
 </div>
-<div id="create-output-of-the-second-aggregated-tidy-dataset" class="section level3">
-<h3>Create output of the second (aggregated) tidy dataset</h3>
-<p>In this section I aggregate all the numerics and take the mean by Activity and Subject. I remove the uncessary columns from the previous exercise and then add a suffix of “_MEAN&quot; to the columns to differentiate from the previous exercise and then change the name of the columns used for grouping. Finally I sort the data, this time by Activity then Subject, when I reviewed the data it seemed to make more sense to see how the Subjects varied by Activity. The last stage is to export the data to a .txt file to share in GitHub:</p>
-<pre class="r"><code>### Create the mean data for the second independent table
-agg_base&lt;-aggregate.data.frame(tidy_data, by=list(tidy_data$Activity, tidy_data$Subject), mean)
-
-### Remove the unwanted columns and rename the groupings
-
-# Identify the columns to drop
-drops &lt;- c(&quot;Subject Type&quot;, &quot;Subject&quot;, &quot;Activity&quot;)
-
-# Recreate the table without them (and remove the drops data)
-agg_base&lt;-agg_base[,!(names(agg_base) %in% drops)]
-rm(drops)
-
-# Rename the group columns for clarity; both by adding _MEAN and changing the groupings
-colnames(agg_base) &lt;- paste(colnames(agg_base), &quot;MEAN&quot;, sep = &quot;_&quot;)
-agg_base&lt;-rename(agg_base, c(&quot;Group.1_MEAN&quot;=&quot;Activity&quot;, &quot;Group.2_MEAN&quot;=&quot;Subject&quot;))
-
-# Sort the order to make it readable (and remove the previous data) - Order this time by activity to understand impact better across subjects
-tidy_data_mean &lt;- agg_base[order(agg_base$&quot;Activity&quot;, agg_base$&quot;Subject&quot;),]
-rm(agg_base)
-
-# Output the .txt file (comma delimited) - Set row.names to false to prevent exporting row numbers and confusing column names
-write.table(tidy_data_mean, file = &quot;tidy_data_mean.txt&quot;, sep = &quot;,&quot;, row.names = FALSE)</code></pre>
+<div id="run_analysis.r" class="section level1">
+<h1>7. run_analysis.R</h1>
+<ul>
+<li>The code run to complete the exercise, its explained in the CookBook.md file and worth checking that out for details.</li>
+<li>There is a single piece of code used to produce the 2 required outputs below:</li>
+</ul>
 </div>
-<div id="produce-the-.md-output" class="section level3">
-<h3>Produce the .md output</h3>
-<p>The code below is commented out as it cause the knit to fail (but wanted it here for completeness):</p>
-<pre class="r"><code>## Produces the knitr output required (not included in the R Markdown files)
-#  knit(&quot;README.Rmd&quot;)   
-#  knit(&quot;CookBook.Rmd&quot;)   </code></pre>
+<div id="tidy_data.txt" class="section level1">
+<h1>8. tidy_data.txt</h1>
+<ul>
+<li>The output for the tidy data set, where the training and test sets are merged, the mean and standard deviation columns are retained, the descriptive acticity names are used to name the activities and the appropriate labels are set.</li>
+<li>The file is 10299 obs. of 69 variables and around 8Mb so use caution when opening.</li>
+</ul>
 </div>
-</div>
+<div id="tidy_data2.txt" class="section level1">
+<h1>9. tidy_data2.txt</h1>
+<p>+The output for the second tidy data set with the average of each variable for each activity and each subject. +The file is 40 obs. of 68 variables so can be opened easily here.</p>
+<p>ScubaSteve22. July 2014.</p>
 </div>
 
 
