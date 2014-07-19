@@ -122,4 +122,4 @@ write.table(tidy_data_mean, file = "tidy_data_mean.txt", sep = ",", row.names = 
 
 # Produces the knitr output required (not included in the R Markdown files)
 knit("README.Rmd")   
-knit("CookBook.Rmd")   
+knit("CodeBook.Rmd")   
