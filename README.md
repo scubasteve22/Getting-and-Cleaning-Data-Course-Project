@@ -9,7 +9,7 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
 Please find below the code used borken into key segments with explanations of each section.  Within the current directory there are the files below:
 
 UCI HAR Dataset folder
-+ Holds the unzipped data required for the exercise (I do not use UCI HAR Dataset folder/)
++ Holds the unzipped data required for the exercise (I do not use the "Inertial Signals"" subfolders for this exercise)
 
 CodeBook.Rmd          
 + The R Markdown file used to create CodeBook.md
